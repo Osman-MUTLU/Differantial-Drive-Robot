@@ -5,18 +5,18 @@ from PIL import Image, ImageTk
 import PIL
 
 # creating a image object (main image)
-im1 = Image.open(r"C:\\resim.png")
+im1 = Image.open(r"image.png")
 
 # rotating a image 90 deg counter clockwise
-im1 = im1.rotate(30, PIL.Image.NEAREST, expand = 1)
+im1 = im1.rotate(0, PIL.Image.NEAREST, expand = 1)
 
 # Create an instance of tkinter frame
 root = Tk()
 
 # Set the geometry of tkinter frame
 root.geometry("1250x700")
-w=1250
-h=700
+w= 1250
+h= 700
 x= 20
 y= 20
 # Create a canvas widget
@@ -42,6 +42,8 @@ def left(event):
     x=new_x
     y=new_y
     canvas.move(my_image,x_diff,y_diff)
+    im1 = im1.rotate(90, PIL.Image.NEAREST, expand = 1)
+    canvas.after(100,)
 
 def right(event):
     global x,y
