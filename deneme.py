@@ -3,9 +3,20 @@ import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
 import PIL
+import serial
+import time
 
 start_angle = 0
 start_coordinates = [50,50]
+
+arduino = serial.Serial(port='COM4', baudrate=9600, timeout=.1)
+
+def write_data(x):
+    arduino.write(bytes(x, 'utf-8'))
+    
+def read_data():
+    data = arduino.readline()
+    return data
 
 def left(canvas,img):
     put_robot(canvas,img,start_coordinates,5)

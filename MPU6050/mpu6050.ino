@@ -5,11 +5,15 @@
  #include "Wire.h"
  #include <MPU6050_light.h>
  MPU6050 mpu(Wire);
- int angle_prev = 0;
- unsigned long timer = 0;
  void setup() {
    Serial.begin(9600);
    Wire.begin();
+  
+ }
+ void loop() {
+   mpu.update();
+ }
+ void set_gyro(){
  byte status = mpu.begin();
    Serial.print(F("MPU6050 status: "));
    Serial.println(status);
@@ -19,16 +23,9 @@
    mpu.calcOffsets(); // gyro and accelero
    Serial.println("Done!\n");
  }
- void loop() {
-   mpu.update();
-   if ((millis() - timer) > 100) { // print data every 10ms;
+ int angle_z(){
     int new_angle = mpu.getAngleZ();
-     Serial.print("\tZ : ");
+     Serial.print(" AngleZ:");
      Serial.print(new_angle);
-     
-     Serial.print("\tD : ");
-     Serial.println(new_angle-angle_prev);
-     angle_prev = new_angle;
-     timer = millis();
-   }
+     return new_angle;
  }
