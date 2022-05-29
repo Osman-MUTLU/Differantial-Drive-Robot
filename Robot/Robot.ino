@@ -23,7 +23,7 @@ const byte MOTOR2 = 3;  // Motor 2 Interrupt Pin - INT 1 MOTOR LEFT
 // Integers for pulse counters
 unsigned int counter1 = 0;
 unsigned int counter2 = 0;
-int x = 0;
+int x = 4;
 // Float for number of slots in encoder disk
 const float diskslots = 2500.00;  // Change to match value of encoder disk
 const float wheeldiameter = 20.0; // Wheel diameter in cm
@@ -70,7 +70,7 @@ void setup()
   Serial.setTimeout(1);
   Wire.begin();
   set_gyro();
-  Timer1.initialize(1000000); // set timer for 1sec
+  Timer1.initialize(100000); // set timer for 1sec
   attachInterrupt(digitalPinToInterrupt (MOTOR1), ISR_count1, RISING);  // Increase counter 1 when speed sensor pin goes High
   attachInterrupt(digitalPinToInterrupt (MOTOR2), ISR_count2, RISING);  // Increase counter 2 when speed sensor pin goes High
   Timer1.attachInterrupt( ISR_timerone ); // Enable the timer
@@ -79,7 +79,6 @@ void setup()
 void loop()
 {
   mpu.update();
-  angle_z();
   if (Serial.available()) {
     x = Serial.readString().toInt();
   }
@@ -160,7 +159,4 @@ void set_gyro_print() {
   delay(1000);
   mpu.calcOffsets(); // gyro and accelero
   Serial.println("Done!\n");
-}
-int angle_z() {
-  
 }
